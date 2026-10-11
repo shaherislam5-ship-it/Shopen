@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SHOPEN – Smart shopping, premium feel</title><link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000610;--panel:#0a1322;--line:#1d2a40;--gold:#d4a95a;--gold2:#f0cf8a;--text:#eef1f6;--mute:#8b97ab}
+*{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,sans-serif}
+h1,h2,h3,.btn{font-family:Sora,sans-serif}a{color:inherit;text-decoration:none}
+.top{background:var(--gold);color:#1a1204;text-align:center;font-size:13px;padding:6px;font-weight:500}
+header{position:sticky;top:0;z-index:20;background:rgba(0,6,16,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{max-width:1200px;margin:auto;display:flex;align-items:center;gap:16px;padding:10px 20px}
+.bar img{height:46px;mix-blend-mode:lighten}.bar input{flex:1;max-width:420px;margin-left:auto}
+input,textarea,select{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:10px 12px;font:inherit;width:100%}
+input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--gold)}
+.btn{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#1a1204;border:0;border-radius:8px;padding:10px 18px;font-weight:600;cursor:pointer}
+.btn.ghost{background:none;color:var(--gold);border:1px solid var(--gold)}.btn:disabled{opacity:.4;cursor:not-allowed}
+.cartbtn{position:relative;white-space:nowrap}.cartbtn b{background:#fff;color:#000;border-radius:99px;padding:0 7px;margin-left:6px;font-size:12px}
+.hero{max-width:1200px;margin:auto;padding:64px 20px 36px;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}
+.hero h1{font-size:clamp(34px,5vw,58px);line-height:1.08;letter-spacing:-.02em}.hero h1 span{color:var(--gold)}
+.hero p{color:var(--mute);margin:16px 0 24px;max-width:46ch}.hero img{width:100%;mix-blend-mode:lighten}
+.wrap{max-width:1200px;margin:auto;padding:0 20px 60px}.chips{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+.chip{background:none;border:1px solid var(--line);color:var(--mute);border-radius:99px;padding:6px 16px;cursor:pointer}.chip.on{border-color:var(--gold);color:var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.ph{aspect-ratio:1;background:linear-gradient(135deg,#0f1c33,#16294a);display:grid;place-items:center;font:700 54px Sora;color:var(--gold);overflow:hidden}.ph img{width:100%;height:100%;object-fit:cover}
+.card div.i{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1}.card small{color:var(--mute)}.price{color:var(--gold2);font:600 18px Sora}.card .btn{margin-top:auto}
+.out{color:#ff7b7b;font-size:13px}
+.shade{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;z-index:40}.shade.on{display:block}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:var(--panel);z-index:50;transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column;padding:20px;gap:12px;overflow:auto}.drawer.on{transform:none}
+.row{display:flex;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:10px 0}.row .ph{width:54px;font-size:20px;border-radius:8px;flex:none}.row>div{flex:1}
+.q button{width:26px;height:26px;border-radius:6px;border:1px solid var(--line);background:none;color:var(--text);cursor:pointer}
+.sum{display:flex;justify-content:space-between;color:var(--mute)}.sum.t{color:var(--text);font:600 18px Sora}
+form{display:grid;gap:10px}.err{color:#ff7b7b;font-size:13px}
+footer{border-top:1px solid var(--line);padding:30px 20px;text-align:center;color:var(--mute)}
+@media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:36px}.hero img{order:-1;max-width:420px}.bar input{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<div class="top" id="notice"></div>
+<header><div class="bar"><a href="/"><img src="logo.png" alt="SHOPEN"></a><input id="q" placeholder="Search products" aria-label="Search"><button class="btn cartbtn" id="open">Cart<b id="cnt">0</b></button></div></header>
+<section class="hero"><div><h1 id="tag">Smart shopping, <span>premium feel.</span></h1><p>Curated electronics, fashion and home essentials, delivered to your door with cash on delivery.</p><a href="#shop" class="btn" style="display:inline-block">Shop now</a></div><img src="logo.png" alt=""></section>
+<main class="wrap" id="shop"><div class="chips" id="chips"></div><div class="grid" id="grid"></div><p id="empty" style="color:var(--mute);display:none">No products match your search.</p></main>
+<footer id="foot"></footer>
+<div class="shade" id="shade"></div>
+<aside class="drawer" id="drawer" aria-label="Cart"></aside>
+<script>
+const $=s=>document.querySelector(s);let S={products:[],settings:{}},cart=JSON.parse(localStorage.shopenCart||'{}'),cat='All',term='',view='cart',done=null,msg='';
+const fmt=n=>S.settings.currency+Number(n).toLocaleString();
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const img=p=>p.image?`<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy">`:esc(p.name[0]);
+async function init(){try{S=await (await fetch('/api/store')).json()}catch(e){$('#grid').innerHTML='<p class="err">Could not load products. Please refresh.</p>';return}
+$('#notice').textContent=S.settings.notice;$('#notice').hidden=!S.settings.notice;document.title=S.settings.storeName+' – '+S.settings.tagline;
+$('#foot').innerHTML=`© ${new Date().getFullYear()} ${esc(S.settings.storeName)} · ${esc(S.settings.phone)} · ${esc(S.settings.email)} · ${esc(S.settings.address)}`;
+Object.keys(cart).forEach(id=>{if(!S.products.find(p=>p.id===id))delete cart[id]});render()}
+function render(){const cats=['All',...new Set(S.products.map(p=>p.category))];
+$('#chips').innerHTML=cats.map(c=>`<button class="chip ${c===cat?'on':''}" data-c="${esc(c)}">${esc(c)}</button>`).join('');
+const list=S.products.filter(p=>(cat==='All'||p.category===cat)&&(p.name+p.description).toLowerCase().includes(term));
+$('#empty').style.display=list.length?'none':'block';
+$('#grid').innerHTML=list.map(p=>`<article class="card"><div class="ph">${img(p)}</div><div class="i"><small>${esc(p.category)}</small><h3 style="font-size:16px">${esc(p.name)}</h3><small>${esc(p.description)}</small><div class="price">${fmt(p.price)}</div>${p.stock>0?`<button class="btn" data-add="${p.id}">Add to cart</button>`:'<span class="out">Out of stock</span>'}</div></article>`).join('');
+$('#cnt').textContent=Object.values(cart).reduce((a,b)=>a+b,0);localStorage.shopenCart=JSON.stringify(cart);drawer()}
+function totals(){const sub=Object.entries(cart).reduce((s,[id,q])=>s+S.products.find(p=>p.id===id).price*q,0);const ship=!sub||sub>=S.settings.freeShippingOver?0:S.settings.shipping;return{sub,ship,total:sub+ship}}
+function drawer(){const d=$('#drawer'),ids=Object.keys(cart),t=totals();let h='<div style="display:flex;justify-content:space-between"><h2>'+(view==='cart'?'Your cart':view==='checkout'?'Checkout':'Order placed')+'</h2><button class="chip" id="close">Close</button></div>';
+if(view==='done'&&done){h+=`<p>Thank you, ${esc(done.name)}! Your order <b style="color:var(--gold)">${done.id}</b> is confirmed.</p><p style="color:var(--mute)">We will call ${esc(done.phone)} to confirm delivery. Pay ${fmt(done.total)} in cash when it arrives.</p><button class="btn" id="close2">Continue shopping</button>`}
+else if(!ids.length)h+='<p style="color:var(--mute)">Your cart is empty. Add something you like.</p>';
+else{if(view==='cart')h+=ids.map(id=>{const p=S.products.find(x=>x.id===id);return`<div class="row"><div class="ph">${img(p)}</div><div><b>${esc(p.name)}</b><br><span class="price" style="font-size:14px">${fmt(p.price)}</span></div><div class="q"><button data-m="${id}" aria-label="Less">−</button> ${cart[id]} <button data-p="${id}" aria-label="More">+</button></div></div>`}).join('');
+h+=`<div class="sum"><span>Subtotal</span><span>${fmt(t.sub)}</span></div><div class="sum"><span>Delivery</span><span>${t.ship?fmt(t.ship):'Free'}</span></div><div class="sum t"><span>Total</span><span>${fmt(t.total)}</span></div>`;
+if(view==='cart')h+='<button class="btn" id="go">Checkout</button>';
+else h+=`<form id="f"><input name="name" placeholder="Full name" required><input name="phone" placeholder="Phone number" required><textarea name="address" placeholder="Delivery address" rows="2" required></textarea><textarea name="note" placeholder="Order note (optional)" rows="1"></textarea><small style="color:var(--mute)">Payment: Cash on delivery</small><div class="err">${esc(msg)}</div><button class="btn">Place order</button><button type="button" class="btn ghost" id="back">Back to cart</button></form>`}
+d.innerHTML=h}
+const open=v=>{if(v)view=v;msg='';drawer();$('#drawer').classList.add('on');$('#shade').classList.add('on')};
+const shut=()=>{$('#drawer').classList.remove('on');$('#shade').classList.remove('on');if(view==='done')view='cart'};
+document.addEventListener('click',e=>{const t=e.target,g=a=>t.closest('['+a+']')?.getAttribute(a);
+if(t.closest('[data-c]')){cat=g('data-c');render()}
+if(g('data-add')){const id=g('data-add'),p=S.products.find(x=>x.id===id);if((cart[id]||0)<p.stock)cart[id]=(cart[id]||0)+1;render();open('cart')}
+if(g('data-p')){const id=g('data-p'),p=S.products.find(x=>x.id===id);if(cart[id]<p.stock)cart[id]++;render()}
+if(g('data-m')){const id=g('data-m');if(--cart[id]<=0)delete cart[id];render()}
+if(t.id==='open')open('cart');if(t.id==='close'||t.id==='close2'||t.id==='shade')shut();
+if(t.id==='go'){view='checkout';drawer()}if(t.id==='back'){view='cart';drawer()}});
+$('#q').oninput=e=>{term=e.target.value.toLowerCase();render()};
+document.addEventListener('submit',async e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target));f.items=Object.entries(cart).map(([id,qty])=>({id,qty}));
+const b=e.target.querySelector('.btn');b.disabled=true;b.textContent='Placing order…';
+try{const r=await fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(f)});const j=await r.json();
+if(!r.ok){msg=j.error;b.disabled=false;drawer();return}done=j.order;cart={};view='done';await init();open('done')}catch(x){msg='Network problem. Please try again.';drawer()}});
+init();
+</script></body></html>
