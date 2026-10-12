@@ -1,84 +1,141 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SHOPEN – Smart shopping, premium feel</title><link rel="icon" href="logo.png">
+<title>SHOPEN – Smart shopping, premium feel</title><link rel="icon" href="/logo-icon.png"><meta name="theme-color" content="#000610">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#000610;--panel:#0a1322;--line:#1d2a40;--gold:#d4a95a;--gold2:#f0cf8a;--text:#eef1f6;--mute:#8b97ab}
-*{box-sizing:border-box;margin:0}body{background:var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,sans-serif}
-h1,h2,h3,.btn{font-family:Sora,sans-serif}a{color:inherit;text-decoration:none}
-.top{background:var(--gold);color:#1a1204;text-align:center;font-size:13px;padding:6px;font-weight:500}
-header{position:sticky;top:0;z-index:20;background:rgba(0,6,16,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.bar{max-width:1200px;margin:auto;display:flex;align-items:center;gap:16px;padding:10px 20px}
-.bar img{height:46px;mix-blend-mode:lighten}.bar input{flex:1;max-width:420px;margin-left:auto}
-input,textarea,select{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:10px 12px;font:inherit;width:100%}
-input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--gold)}
-.btn{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#1a1204;border:0;border-radius:8px;padding:10px 18px;font-weight:600;cursor:pointer}
-.btn.ghost{background:none;color:var(--gold);border:1px solid var(--gold)}.btn:disabled{opacity:.4;cursor:not-allowed}
-.cartbtn{position:relative;white-space:nowrap}.cartbtn b{background:#fff;color:#000;border-radius:99px;padding:0 7px;margin-left:6px;font-size:12px}
-.hero{max-width:1200px;margin:auto;padding:64px 20px 36px;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}
-.hero h1{font-size:clamp(34px,5vw,58px);line-height:1.08;letter-spacing:-.02em}.hero h1 span{color:var(--gold)}
-.hero p{color:var(--mute);margin:16px 0 24px;max-width:46ch}.hero img{width:100%;mix-blend-mode:lighten}
-.wrap{max-width:1200px;margin:auto;padding:0 20px 60px}.chips{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
-.chip{background:none;border:1px solid var(--line);color:var(--mute);border-radius:99px;padding:6px 16px;cursor:pointer}.chip.on{border-color:var(--gold);color:var(--gold)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
-.ph{aspect-ratio:1;background:linear-gradient(135deg,#0f1c33,#16294a);display:grid;place-items:center;font:700 54px Sora;color:var(--gold);overflow:hidden}.ph img{width:100%;height:100%;object-fit:cover}
-.card div.i{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1}.card small{color:var(--mute)}.price{color:var(--gold2);font:600 18px Sora}.card .btn{margin-top:auto}
-.out{color:#ff7b7b;font-size:13px}
-.shade{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;z-index:40}.shade.on{display:block}
-.drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:var(--panel);z-index:50;transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column;padding:20px;gap:12px;overflow:auto}.drawer.on{transform:none}
-.row{display:flex;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:10px 0}.row .ph{width:54px;font-size:20px;border-radius:8px;flex:none}.row>div{flex:1}
-.q button{width:26px;height:26px;border-radius:6px;border:1px solid var(--line);background:none;color:var(--text);cursor:pointer}
-.sum{display:flex;justify-content:space-between;color:var(--mute)}.sum.t{color:var(--text);font:600 18px Sora}
-form{display:grid;gap:10px}.err{color:#ff7b7b;font-size:13px}
-footer{border-top:1px solid var(--line);padding:30px 20px;text-align:center;color:var(--mute)}
-@media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:36px}.hero img{order:-1;max-width:420px}.bar input{display:none}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+:root{--bg:#000610;--p:#0a1322;--l:#1d2a40;--g:#d4a95a;--g2:#f0cf8a;--t:#eef1f6;--m:#8b97ab}
+*{box-sizing:border-box;margin:0}html{background:var(--bg);scroll-behavior:smooth}body{color:var(--t);font:15px/1.6 Inter,system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3,.btn,.price,.chip{font-family:Sora,sans-serif}a{color:inherit;text-decoration:none}img{max-width:100%;display:block}.gold{color:var(--g)}.mut{color:var(--m)}
+#amb{position:fixed;inset:0;z-index:-2;overflow:hidden;background:radial-gradient(120% 80% at 50% -10%,#0b1a33,#000610 62%)}
+#amb i{position:absolute;border-radius:50%;filter:blur(90px);will-change:transform;animation:drift 24s ease-in-out infinite alternate}
+#amb i:nth-child(1){width:46vw;height:46vw;left:-10vw;top:-8vw;background:#d4a95a;opacity:.25}
+#amb i:nth-child(2){width:38vw;height:38vw;right:-8vw;top:30vh;background:#1f4fa8;opacity:.3;animation-duration:30s}
+#amb i:nth-child(3){width:34vw;height:34vw;left:30vw;bottom:-14vw;background:#b9803a;opacity:.18;animation-duration:36s}
+@keyframes drift{to{transform:translate3d(8vw,6vh,0) scale(1.15)}}
+#glow{position:fixed;left:-250px;top:-250px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(240,207,138,.13),transparent 65%);pointer-events:none;z-index:-1;transition:transform .35s ease-out}
+@media(hover:none){#glow{display:none}}
+#splash{position:fixed;inset:0;background:var(--bg);z-index:99;display:grid;place-items:center;transition:opacity .6s,visibility .6s}#splash.x{opacity:0;visibility:hidden}
+#splash img{width:90px;animation:pulse 1.6s ease-in-out infinite}@keyframes pulse{50%{transform:scale(1.08);filter:drop-shadow(0 0 24px rgba(240,207,138,.6))}}
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s}.rv.in{opacity:1;transform:none}
+.wrap{max-width:1240px;margin:auto;padding:0 20px}
+.top{background:linear-gradient(90deg,#b9803a,var(--g2),#b9803a);color:#1a1204;text-align:center;font-size:13px;padding:6px;font-weight:600}
+header{position:sticky;top:0;z-index:30;background:rgba(0,6,16,.7);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
+.bar{display:flex;align-items:center;gap:18px;height:68px}.lg .full{height:44px}.lg .mini{display:none;height:40px}
+nav{display:flex;gap:6px;margin-left:8px}nav a,nav button{color:var(--m);padding:6px 12px;border-radius:99px;background:none;border:0;cursor:pointer;font:inherit}nav a:hover,nav button:hover{color:var(--g2)}
+.bar input{margin-left:auto;max-width:320px}
+input,textarea,select{background:rgba(10,19,34,.8);border:1px solid var(--l);color:var(--t);border-radius:10px;padding:10px 12px;font:inherit;width:100%}
+input:focus,textarea:focus,select:focus,button:focus-visible,a:focus-visible{outline:2px solid var(--g);outline-offset:2px}
+.btn{background:linear-gradient(135deg,var(--g2),var(--g));color:#1a1204;border:0;border-radius:10px;padding:11px 20px;font-weight:600;cursor:pointer;transition:transform .2s,box-shadow .3s;display:inline-block;text-align:center}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(212,169,90,.35)}.btn.ghost{background:none;color:var(--g);border:1px solid var(--g)}.btn:disabled{opacity:.4}
+.chip{background:none;border:1px solid var(--l);color:var(--m);border-radius:99px;padding:6px 16px;cursor:pointer;font-size:13px;display:inline-block}.chip.on,.chip:hover{border-color:var(--g);color:var(--g)}
+b.n{background:#fff;color:#000;border-radius:99px;padding:0 7px;margin-left:6px;font-size:12px}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:center;padding-top:70px;padding-bottom:50px}
+.eyebrow{color:var(--g);letter-spacing:.2em;text-transform:uppercase;font-size:12px}.hero h1{font-size:clamp(34px,5.2vw,62px);line-height:1.06;letter-spacing:-.025em;margin:12px 0}
+.hero p{color:var(--m);max-width:50ch;margin-bottom:24px}.cta{display:flex;gap:12px;flex-wrap:wrap}
+.trust{display:flex;gap:18px;flex-wrap:wrap;list-style:none;padding:0;margin-top:22px;color:var(--m);font-size:13px}.trust li:before{content:"✦ ";color:var(--g)}
+.orb{display:grid;place-items:center;position:relative}.orb:before{content:"";position:absolute;width:80%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(212,169,90,.35),transparent 68%);animation:breathe 6s ease-in-out infinite}
+.orb img{width:62%;position:relative;animation:fl 7s ease-in-out infinite;filter:drop-shadow(0 20px 40px rgba(212,169,90,.35))}
+@keyframes fl{50%{transform:translateY(-14px) rotate(-1.5deg)}}@keyframes breathe{50%{transform:scale(1.18);opacity:.7}}
+.sh{font-size:26px;margin:44px 0 18px;letter-spacing:-.01em}.tools{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px}.tools select{width:auto}.chips{display:flex;gap:8px;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:22px}
+.card{position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(15,27,48,.85),rgba(10,19,34,.85));border:1px solid var(--l);border-radius:16px;display:flex;flex-direction:column;transition:transform .35s,border-color .35s,box-shadow .35s}
+.card:hover{transform:translateY(-6px);border-color:rgba(212,169,90,.5);box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 40px rgba(212,169,90,.08)}
+.card:before{content:"";position:absolute;inset:0;background:radial-gradient(260px circle at var(--x,50%) var(--y,0),rgba(240,207,138,.16),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none;z-index:2}.card:hover:before{opacity:1}
+.ph{aspect-ratio:1;background:radial-gradient(circle at 50% 40%,#16294a,#0a1322);display:grid;place-items:center;overflow:hidden;position:relative}.ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s}.card:hover .ph img{transform:scale(1.06)}
+img.phi{width:42%!important;height:auto!important;object-fit:contain!important;opacity:.55;filter:drop-shadow(0 0 20px rgba(212,169,90,.4))}
+.bd,.off{position:absolute;top:10px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px;z-index:1}.bd{left:10px;background:var(--g);color:#1a1204}.off{right:10px;background:#c0392b;top:46px}
+.heart{position:absolute;top:8px;right:8px;z-index:3;width:34px;height:34px;border-radius:50%;border:0;background:rgba(0,6,16,.6);color:var(--m);cursor:pointer;font-size:16px}.heart.on{color:#ff5d73}
+.card .i{padding:14px;display:flex;flex-direction:column;gap:5px;flex:1}.card small{color:var(--m)}.card h3{font-size:16px}.card .btn{margin-top:auto}
+.price{color:var(--g2);font-weight:600;font-size:18px}s{color:var(--m);margin-left:8px;font-size:13px}.out{color:#ff7b7b;font-size:13px}.ok{color:#5fd08a;font-size:13px}
+.pd{padding-top:24px}.crumb{color:var(--m);font-size:13px;margin-bottom:18px}.pg{display:grid;grid-template-columns:1.05fr .95fr;gap:36px}
+.main{aspect-ratio:1;border-radius:18px;overflow:hidden;background:radial-gradient(circle at 50% 40%,#16294a,#0a1322);border:1px solid var(--l);display:grid;place-items:center}.main img,.main iframe,.main video{width:100%;height:100%;object-fit:cover;border:0}
+.th{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}.th button{width:68px;height:68px;border-radius:10px;border:1px solid var(--l);background:var(--p);color:var(--g);cursor:pointer;overflow:hidden;padding:0;font-size:20px}.th button.on{border-color:var(--g)}.th img{width:100%;height:100%;object-fit:cover}
+.info h1{font-size:clamp(26px,3.4vw,38px);line-height:1.15;margin:6px 0 12px}.eb{color:var(--g);letter-spacing:.14em;text-transform:uppercase}.price.big{font-size:30px}.off2{background:rgba(95,208,138,.15);color:#5fd08a;padding:2px 10px;border-radius:99px;font-size:12px;margin-left:10px}
+.desc{white-space:pre-line;color:#c6cedc;margin:14px 0}.qr{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:20px 0}.q{display:flex;align-items:center;gap:12px;border:1px solid var(--l);border-radius:10px;padding:4px 10px}
+.q button{width:28px;height:28px;border:0;background:none;color:var(--t);font-size:18px;cursor:pointer}.mini-row{display:flex;gap:10px}
+.sp{width:100%;border-collapse:collapse;max-width:760px}.sp td{padding:11px 14px;border-bottom:1px solid var(--l)}.sp td:first-child{color:var(--m);width:40%}
+.shade{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;z-index:40}.shade.on{display:block}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(430px,100%);background:#070f1d;border-left:1px solid var(--l);z-index:50;transform:translateX(100%);transition:transform .3s;display:flex;flex-direction:column;padding:20px;gap:10px;overflow:auto}.drawer.on{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:center}.row{display:flex;gap:10px;align-items:center;border-bottom:1px solid var(--l);padding:10px 0}.row .ph{width:56px;flex:none;border-radius:8px}.row>div:nth-child(2){flex:1}
+.rq button{width:26px;height:26px;border-radius:6px;border:1px solid var(--l);background:none;color:var(--t);cursor:pointer}
+.sum{display:flex;justify-content:space-between;color:var(--m)}.sum.t{color:var(--t);font:600 18px Sora}.cpn{display:flex;gap:8px;margin-top:6px}
+form{display:grid;gap:10px}.err{color:#ff7b7b;font-size:13px}.pays{display:grid;gap:8px}.pay{display:flex;gap:10px;align-items:center;border:1px solid var(--l);border-radius:10px;padding:10px;cursor:pointer}.pay input{width:auto}.pay.on{border-color:var(--g)}
+.ok-box{background:var(--p);border:1px solid var(--l);border-radius:12px;padding:16px;display:grid;gap:6px}
+.steps{display:flex;gap:6px;margin:16px 0}.steps span{flex:1;text-align:center;padding:8px 4px;border-radius:8px;border:1px solid var(--l);font-size:12px;color:var(--m)}.steps span.on{background:var(--g);color:#1a1204;border-color:var(--g)}
+footer{margin-top:70px;border-top:1px solid var(--l);padding:40px 20px;background:rgba(0,6,16,.6)}.fg{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}.fg img{height:50px;margin-bottom:12px}.fg p{color:var(--m);font-size:14px}
+.wa{position:fixed;right:18px;bottom:18px;z-index:25;background:#25d366;color:#fff;border-radius:99px;padding:11px 18px;font:600 14px Sora;box-shadow:0 8px 30px rgba(37,211,102,.4)}
+@media(max-width:820px){.hero,.pg{grid-template-columns:1fr}.orb{order:-1;max-width:260px;margin:auto}nav,.lg .full{display:none}.lg .mini{display:block}.bar input{max-width:none}.hero{padding-top:36px}}
+@media(prefers-reduced-motion:reduce){*,*:before{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 </style></head><body>
+<div id="amb"><i></i><i></i><i></i></div><div id="glow"></div><div id="splash"><img src="/logo-icon.png" alt="SHOPEN"></div>
 <div class="top" id="notice"></div>
-<header><div class="bar"><a href="/"><img src="logo.png" alt="SHOPEN"></a><input id="q" placeholder="Search products" aria-label="Search"><button class="btn cartbtn" id="open">Cart<b id="cnt">0</b></button></div></header>
-<section class="hero"><div><h1 id="tag">Smart shopping, <span>premium feel.</span></h1><p>Curated electronics, fashion and home essentials, delivered to your door with cash on delivery.</p><a href="#shop" class="btn" style="display:inline-block">Shop now</a></div><img src="logo.png" alt=""></section>
-<main class="wrap" id="shop"><div class="chips" id="chips"></div><div class="grid" id="grid"></div><p id="empty" style="color:var(--mute);display:none">No products match your search.</p></main>
-<footer id="foot"></footer>
-<div class="shade" id="shade"></div>
-<aside class="drawer" id="drawer" aria-label="Cart"></aside>
+<header><div class="bar wrap"><a href="#/" class="lg" aria-label="SHOPEN home"><img class="full" src="/logo-full.png" alt="SHOPEN"><img class="mini" src="/logo-icon.png" alt="SHOPEN"></a><nav><a href="#/">Shop</a><a href="#/track">Track order</a><button id="sv">♥ Saved<b class="n" id="wc">0</b></button></nav><input id="q" placeholder="Search products" aria-label="Search"><button class="btn" id="open">Cart<b class="n" id="cnt">0</b></button></div></header>
+<div id="app"></div><footer id="foot"></footer><a class="wa" id="wa" target="_blank" rel="noopener">WhatsApp</a>
+<div class="shade" id="shade"></div><aside class="drawer" id="drawer" aria-label="Cart"></aside>
 <script>
-const $=s=>document.querySelector(s);let S={products:[],settings:{}},cart=JSON.parse(localStorage.shopenCart||'{}'),cat='All',term='',view='cart',done=null,msg='';
-const fmt=n=>S.settings.currency+Number(n).toLocaleString();
+const $=s=>document.querySelector(s),L=(k,d)=>{try{return JSON.parse(localStorage[k])||d}catch{return d}};
+let S={settings:{},products:[]},cart=L('sc',{}),wish=L('sw',[]),cat='All',term='',sort='new',saved=false,view='cart',msg='',cm='',done=null,cp=null,pay='COD',qty=1,M=[];
+const fmt=n=>S.settings.currency+Math.round(n).toLocaleString('en-US'),find=id=>S.products.find(p=>p.id===id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const img=p=>p.image?`<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy">`:esc(p.name[0]);
-async function init(){try{S=await (await fetch('/api/store')).json()}catch(e){$('#grid').innerHTML='<p class="err">Could not load products. Please refresh.</p>';return}
-$('#notice').textContent=S.settings.notice;$('#notice').hidden=!S.settings.notice;document.title=S.settings.storeName+' – '+S.settings.tagline;
-$('#foot').innerHTML=`© ${new Date().getFullYear()} ${esc(S.settings.storeName)} · ${esc(S.settings.phone)} · ${esc(S.settings.email)} · ${esc(S.settings.address)}`;
-Object.keys(cart).forEach(id=>{if(!S.products.find(p=>p.id===id))delete cart[id]});render()}
-function render(){const cats=['All',...new Set(S.products.map(p=>p.category))];
-$('#chips').innerHTML=cats.map(c=>`<button class="chip ${c===cat?'on':''}" data-c="${esc(c)}">${esc(c)}</button>`).join('');
-const list=S.products.filter(p=>(cat==='All'||p.category===cat)&&(p.name+p.description).toLowerCase().includes(term));
-$('#empty').style.display=list.length?'none':'block';
-$('#grid').innerHTML=list.map(p=>`<article class="card"><div class="ph">${img(p)}</div><div class="i"><small>${esc(p.category)}</small><h3 style="font-size:16px">${esc(p.name)}</h3><small>${esc(p.description)}</small><div class="price">${fmt(p.price)}</div>${p.stock>0?`<button class="btn" data-add="${p.id}">Add to cart</button>`:'<span class="out">Out of stock</span>'}</div></article>`).join('');
-$('#cnt').textContent=Object.values(cart).reduce((a,b)=>a+b,0);localStorage.shopenCart=JSON.stringify(cart);drawer()}
-function totals(){const sub=Object.entries(cart).reduce((s,[id,q])=>s+S.products.find(p=>p.id===id).price*q,0);const ship=!sub||sub>=S.settings.freeShippingOver?0:S.settings.shipping;return{sub,ship,total:sub+ship}}
-function drawer(){const d=$('#drawer'),ids=Object.keys(cart),t=totals();let h='<div style="display:flex;justify-content:space-between"><h2>'+(view==='cart'?'Your cart':view==='checkout'?'Checkout':'Order placed')+'</h2><button class="chip" id="close">Close</button></div>';
-if(view==='done'&&done){h+=`<p>Thank you, ${esc(done.name)}! Your order <b style="color:var(--gold)">${done.id}</b> is confirmed.</p><p style="color:var(--mute)">We will call ${esc(done.phone)} to confirm delivery. Pay ${fmt(done.total)} in cash when it arrives.</p><button class="btn" id="close2">Continue shopping</button>`}
-else if(!ids.length)h+='<p style="color:var(--mute)">Your cart is empty. Add something you like.</p>';
-else{if(view==='cart')h+=ids.map(id=>{const p=S.products.find(x=>x.id===id);return`<div class="row"><div class="ph">${img(p)}</div><div><b>${esc(p.name)}</b><br><span class="price" style="font-size:14px">${fmt(p.price)}</span></div><div class="q"><button data-m="${id}" aria-label="Less">−</button> ${cart[id]} <button data-p="${id}" aria-label="More">+</button></div></div>`}).join('');
-h+=`<div class="sum"><span>Subtotal</span><span>${fmt(t.sub)}</span></div><div class="sum"><span>Delivery</span><span>${t.ship?fmt(t.ship):'Free'}</span></div><div class="sum t"><span>Total</span><span>${fmt(t.total)}</span></div>`;
-if(view==='cart')h+='<button class="btn" id="go">Checkout</button>';
-else h+=`<form id="f"><input name="name" placeholder="Full name" required><input name="phone" placeholder="Phone number" required><textarea name="address" placeholder="Delivery address" rows="2" required></textarea><textarea name="note" placeholder="Order note (optional)" rows="1"></textarea><small style="color:var(--mute)">Payment: Cash on delivery</small><div class="err">${esc(msg)}</div><button class="btn">Place order</button><button type="button" class="btn ghost" id="back">Back to cart</button></form>`}
-d.innerHTML=h}
-const open=v=>{if(v)view=v;msg='';drawer();$('#drawer').classList.add('on');$('#shade').classList.add('on')};
-const shut=()=>{$('#drawer').classList.remove('on');$('#shade').classList.remove('on');if(view==='done')view='cart'};
-document.addEventListener('click',e=>{const t=e.target,g=a=>t.closest('['+a+']')?.getAttribute(a);
-if(t.closest('[data-c]')){cat=g('data-c');render()}
-if(g('data-add')){const id=g('data-add'),p=S.products.find(x=>x.id===id);if((cart[id]||0)<p.stock)cart[id]=(cart[id]||0)+1;render();open('cart')}
-if(g('data-p')){const id=g('data-p'),p=S.products.find(x=>x.id===id);if(cart[id]<p.stock)cart[id]++;render()}
-if(g('data-m')){const id=g('data-m');if(--cart[id]<=0)delete cart[id];render()}
-if(t.id==='open')open('cart');if(t.id==='close'||t.id==='close2'||t.id==='shade')shut();
-if(t.id==='go'){view='checkout';drawer()}if(t.id==='back'){view='cart';drawer()}});
-$('#q').oninput=e=>{term=e.target.value.toLowerCase();render()};
-document.addEventListener('submit',async e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target));f.items=Object.entries(cart).map(([id,qty])=>({id,qty}));
-const b=e.target.querySelector('.btn');b.disabled=true;b.textContent='Placing order…';
-try{const r=await fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(f)});const j=await r.json();
-if(!r.ok){msg=j.error;b.disabled=false;drawer();return}done=j.order;cart={};view='done';await init();open('done')}catch(x){msg='Network problem. Please try again.';drawer()}});
-init();
+const imgOf=p=>p.images&&p.images[0]?`<img src="${esc(p.images[0])}" alt="${esc(p.name)}" loading="lazy">`:'<img class="phi" src="/logo-icon.png" alt="">';
+const yt=u=>(u.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/)||[])[1];
+const io='IntersectionObserver'in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.06}):null;
+const reveal=()=>document.querySelectorAll('.rv:not(.in)').forEach(el=>io?io.observe(el):el.classList.add('in'));
+const card=p=>`<article class="card rv"><a href="#/p/${p.id}" class="ph">${imgOf(p)}${p.badge?`<span class="bd">${esc(p.badge)}</span>`:''}${p.oldPrice>p.price?`<span class="off">-${Math.round(100-p.price/p.oldPrice*100)}%</span>`:''}</a><button class="heart ${wish.includes(p.id)?'on':''}" data-w="${p.id}" aria-label="Save">♥</button><div class="i"><small>${esc(p.brand||p.category)}</small><a href="#/p/${p.id}"><h3>${esc(p.name)}</h3></a><div><span class="price">${fmt(p.price)}</span>${p.oldPrice>p.price?`<s>${fmt(p.oldPrice)}</s>`:''}</div>${p.stock>0?`<button class="btn" data-add="${p.id}">Add to cart</button>`:'<span class="out">Out of stock</span>'}</div></article>`;
+function home(){const cats=['All',...new Set(S.products.map(p=>p.category))],s=S.settings,feat=S.products.filter(p=>p.featured&&p.stock>0).slice(0,4);
+return`<section class="hero wrap"><div class="rv"><span class="eyebrow">${esc(s.storeName)} · New collection</span><h1>${esc(s.heroTitle)}</h1><p>${esc(s.heroText)}</p><div class="cta"><button class="btn" data-go>Shop now</button><a href="#/track" class="btn ghost">Track order</a></div><ul class="trust"><li>Cash on delivery</li><li>bKash &amp; Nagad</li><li>Fast delivery</li></ul></div><div class="orb rv"><img src="/logo-icon.png" alt=""></div></section>
+${feat.length&&!saved?`<section class="wrap"><h2 class="sh rv">Featured</h2><div class="grid">${feat.map(card).join('')}</div></section>`:''}
+<section class="wrap" id="shop"><h2 class="sh rv">${saved?'Saved items':'All products'}</h2><div class="tools rv"><div class="chips">${cats.map(c=>`<button class="chip ${c===cat?'on':''}" data-c="${esc(c)}">${esc(c)}</button>`).join('')}</div><select id="so" aria-label="Sort"><option value="new">Newest</option><option value="lo" ${sort==='lo'?'selected':''}>Price: low to high</option><option value="hi" ${sort==='hi'?'selected':''}>Price: high to low</option></select></div><div class="grid" id="grid"></div><p id="empty" class="mut" style="display:none">No products found.</p></section>`}
+function list(){const g=$('#grid');if(!g)return;const l=S.products.filter(p=>(cat==='All'||p.category===cat)&&(!saved||wish.includes(p.id))&&(p.name+' '+p.brand+' '+p.description).toLowerCase().includes(term));
+if(sort==='lo')l.sort((a,b)=>a.price-b.price);if(sort==='hi')l.sort((a,b)=>b.price-a.price);g.innerHTML=l.map(card).join('');$('#empty').style.display=l.length?'none':'block';reveal()}
+function media(i){const m=M[i];if(!m)return'<img class="phi" src="/logo-icon.png" alt="">';if(m.t==='i')return`<img src="${esc(m.u)}" alt="">`;const y=yt(m.u);return y?`<iframe src="https://www.youtube.com/embed/${y}" allowfullscreen title="Product video"></iframe>`:`<video src="${esc(m.u)}" controls playsinline></video>`}
+function product(id){const p=find(id);if(!p)return'<div class="wrap" style="padding:80px 20px">Product not found. <a href="#/" class="gold">Back to shop</a></div>';
+M=[...(p.images||[]).map(u=>({t:'i',u})),...(p.video?[{t:'v',u:p.video}]:[])];qty=1;
+const sp=(p.specs||'').split('\n').map(x=>x.split(/:(.+)/)).filter(x=>x[1]),rel=S.products.filter(x=>x.category===p.category&&x.id!==p.id).slice(0,4);
+return`<div class="wrap pd"><div class="crumb"><a href="#/">Shop</a> / ${esc(p.category)} / ${esc(p.name)}</div><div class="pg"><div class="rv"><div class="main" id="main">${media(0)}</div>${M.length>1?`<div class="th">${M.map((m,i)=>`<button data-m="${i}" class="${i?'':'on'}" aria-label="Media ${i+1}">${m.t==='v'?'▶':`<img src="${esc(m.u)}" alt="">`}</button>`).join('')}</div>`:''}</div>
+<div class="info rv"><small class="eb">${esc(p.brand||p.category)}</small><h1>${esc(p.name)}</h1><div><span class="price big">${fmt(p.price)}</span>${p.oldPrice>p.price?`<s>${fmt(p.oldPrice)}</s><span class="off2">Save ${fmt(p.oldPrice-p.price)}</span>`:''}</div><p class="${p.stock>0?'ok':'out'}">${p.stock>0?(p.stock<=5?'Only '+p.stock+' left':'In stock'):'Out of stock'}</p><p class="desc">${esc(p.description)}</p>
+${p.stock>0?`<div class="qr"><div class="q"><button data-qm aria-label="Less">−</button><b id="qv">1</b><button data-qp="${p.stock}" aria-label="More">+</button></div><button class="btn" data-addq="${p.id}">Add to cart</button><button class="btn ghost" data-buy="${p.id}">Buy now</button></div>`:''}
+<div class="mini-row"><button class="chip" data-w="${p.id}" data-t>${wish.includes(p.id)?'♥ Saved':'♡ Save'}</button><a class="chip" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(p.name+' '+location.href)}">Share</a></div><ul class="trust"><li>Cash on delivery</li><li>Delivery in 2–4 days</li><li>WhatsApp support</li></ul></div></div>
+${sp.length?`<h2 class="sh rv">Specifications</h2><table class="sp rv">${sp.map(x=>`<tr><td>${esc(x[0])}</td><td>${esc(x[1].trim())}</td></tr>`).join('')}</table>`:''}
+${rel.length?`<h2 class="sh rv">You may also like</h2><div class="grid">${rel.map(card).join('')}</div>`:''}</div>`}
+const track=()=>`<div class="wrap" style="max-width:560px;padding:60px 20px"><h1 class="sh" style="margin-top:0">Track your order</h1><form id="tf"><input name="id" placeholder="Order ID (SHP-XXXX)" required><input name="phone" placeholder="Phone used in the order" required><button class="btn">Track</button></form><div id="tr"></div></div>`;
+function route(keep){const h=location.hash,m=h.match(/^#\/p\/(.+)/);$('#app').innerHTML=m?product(decodeURIComponent(m[1])):h==='#/track'?track():home();if(!keep)scrollTo(0,0);list();reveal()}
+function badge(){$('#cnt').textContent=Object.values(cart).reduce((a,b)=>a+b,0);$('#wc').textContent=wish.length;localStorage.sc=JSON.stringify(cart);localStorage.sw=JSON.stringify(wish)}
+function totals(){const s=S.settings,sub=Object.entries(cart).reduce((a,[id,q])=>a+find(id).price*q,0),d=cp&&sub>=cp.min?Math.min(sub,cp.type==='percent'?Math.round(sub*cp.value/100):cp.value):0,ship=!sub||sub>=s.freeShippingOver?0:+s.shipping;return{sub,d,ship,total:sub-d+ship}}
+const trxHtml=()=>pay==='COD'?'':`<p class="mut">Send ${fmt(totals().total)} to <b class="gold">${esc(pay==='bKash'?S.settings.bkash:S.settings.nagad)}</b> (Send Money), then enter the transaction ID.</p><input name="trx" placeholder="Transaction ID" required>`;
+function drawer(){const ids=Object.keys(cart),t=ids.length?totals():{};let h=`<div class="dh"><h2>${view==='cart'?'Your cart':view==='checkout'?'Checkout':'Order placed'}</h2><button class="chip" id="close">Close</button></div>`;
+if(view==='done'&&done)h+=`<div class="ok-box"><p>Thank you, ${esc(done.name)}!</p><p>Order ID: <b class="gold">${done.id}</b></p><p class="mut">Keep this ID to <a href="#/track" data-close class="gold">track your order</a>. We will call ${esc(done.phone)} to confirm.</p><p>Total: <b>${fmt(done.total)}</b> · ${esc(done.payment)}</p></div><button class="btn" id="close2">Continue shopping</button>`;
+else if(!ids.length)h+='<p class="mut">Your cart is empty.</p>';
+else{if(view==='cart')h+=ids.map(id=>{const p=find(id);return`<div class="row"><div class="ph">${imgOf(p)}</div><div><b>${esc(p.name)}</b><br><span class="price" style="font-size:14px">${fmt(p.price)}</span></div><div class="rq"><button data-cm="${id}" aria-label="Less">−</button> ${cart[id]} <button data-cp="${id}" aria-label="More">+</button></div></div>`}).join('')+`<div class="cpn"><input id="cc" placeholder="Coupon code" value="${cp?esc(cp.code):''}"><button class="chip" data-coupon>Apply</button></div><div class="${cp&&t.d?'ok':'err'}">${esc(cm)}</div>`;
+h+=`<div class="sum"><span>Subtotal</span><span>${fmt(t.sub)}</span></div>${t.d?`<div class="sum"><span>Discount (${esc(cp.code)})</span><span>−${fmt(t.d)}</span></div>`:''}<div class="sum"><span>Delivery</span><span>${t.ship?fmt(t.ship):'Free'}</span></div><div class="sum t"><span>Total</span><span>${fmt(t.total)}</span></div>`;
+h+=view==='cart'?'<button class="btn" id="go">Checkout</button>':`<form id="f"><input name="name" placeholder="Full name" required><input name="phone" type="tel" placeholder="Phone number" required><textarea name="address" placeholder="Delivery address" rows="2" required></textarea><textarea name="note" placeholder="Order note (optional)" rows="1"></textarea><div class="pays">${['COD','bKash','Nagad'].map(x=>`<label class="pay ${pay===x?'on':''}"><input type="radio" name="payment" value="${x}" ${pay===x?'checked':''}> ${x==='COD'?'Cash on delivery':x}</label>`).join('')}</div><div id="trx">${trxHtml()}</div><div class="err">${esc(msg)}</div><button class="btn">Place order</button><button type="button" class="btn ghost" id="back">Back to cart</button></form>`}
+$('#drawer').innerHTML=h}
+const open=v=>{if(v)view=v;msg='';drawer();$('#drawer').classList.add('on');$('#shade').classList.add('on')},shut=()=>{$('#drawer').classList.remove('on');$('#shade').classList.remove('on');if(view==='done')view='cart'};
+const add=(id,n)=>{const p=find(id);cart[id]=Math.min(p.stock,(cart[id]||0)+n);badge()};
+document.addEventListener('click',e=>{const t=e.target,E=n=>t.closest('[data-'+n+']');let x;
+if(x=E('c')){cat=x.dataset.c;route(true)}
+if(x=E('w')){const id=x.dataset.w,i=wish.indexOf(id);i<0?wish.push(id):wish.splice(i,1);badge();document.querySelectorAll('[data-w="'+id+'"]').forEach(b=>{b.classList.toggle('on',i<0);if(b.dataset.t!==undefined)b.textContent=i<0?'♥ Saved':'♡ Save'});if(saved)list()}
+if(x=E('add')){add(x.dataset.add,1);open('cart')}if(x=E('addq')){add(x.dataset.addq,qty);open('cart')}if(x=E('buy')){add(x.dataset.buy,qty);open('checkout')}
+if(E('qm')&&qty>1)$('#qv').textContent=--qty;if(x=E('qp')){if(qty<+x.dataset.qp)$('#qv').textContent=++qty}
+if(x=E('m')){$('#main').innerHTML=media(+x.dataset.m);document.querySelectorAll('.th button').forEach(b=>b.classList.toggle('on',b===x))}
+if(x=E('cp')){add(x.dataset.cp,1);drawer()}if(x=E('cm')){if(--cart[x.dataset.cm]<=0)delete cart[x.dataset.cm];badge();drawer()}
+if(E('coupon'))fetch('/api/coupon',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code:$('#cc').value,subtotal:totals().sub})}).then(r=>r.json()).then(j=>{if(j.coupon){cp=j.coupon;cm='Coupon applied'}else{cp=null;cm=j.error}drawer()});
+if(t.id==='go'){view='checkout';drawer()}if(t.id==='back'){view='cart';drawer()}if(t.id==='open')open('cart');if(t.id==='close'||t.id==='close2'||t.id==='shade'||E('close'))shut();
+if(E('go')){$('#shop').scrollIntoView()}
+if(t.id==='sv'){saved=!saved;location.hash!=='#/'&&location.hash!==''?(location.hash='#/'):route();$('#sv').style.color=saved?'var(--g2)':''}});
+document.addEventListener('change',e=>{if(e.target.id==='so'){sort=e.target.value;list()}if(e.target.name==='payment'){pay=e.target.value;$('#trx').innerHTML=trxHtml();document.querySelectorAll('.pay').forEach(l=>l.classList.toggle('on',l.querySelector('input').checked))}});
+$('#q').addEventListener('input',e=>{term=e.target.value.toLowerCase();if(!$('#grid')){location.hash='#/'}list()});
+document.addEventListener('submit',async e=>{e.preventDefault();const f=e.target,d=Object.fromEntries(new FormData(f)),b=f.querySelector('.btn');
+if(f.id==='tf'){const r=await fetch('/api/track?id='+encodeURIComponent(d.id)+'&phone='+encodeURIComponent(d.phone)),j=await r.json();if(!r.ok){$('#tr').innerHTML=`<p class="err" style="margin-top:14px">${esc(j.error)}</p>`;return}const o=j.order,st=['Pending','Confirmed','Shipped','Delivered'],ix=st.indexOf(o.status);
+$('#tr').innerHTML=`<div class="ok-box" style="margin-top:16px"><b class="gold">${esc(o.id)}</b>${o.status==='Cancelled'?'<p class="err">This order was cancelled.</p>':`<div class="steps">${st.map((s,i)=>`<span class="${i<=ix?'on':''}">${s}</span>`).join('')}</div>`}<p class="mut">${o.items.map(i=>esc(i.name)+' × '+i.qty).join(', ')}</p><p>Total: <b>${fmt(o.total)}</b></p></div>`;return}
+if(f.id!=='f')return;d.items=Object.entries(cart).map(([id,qty])=>({id,qty}));d.coupon=cp?cp.code:'';b.disabled=true;b.textContent='Placing order…';
+try{const r=await fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}),j=await r.json();if(!r.ok){msg=j.error;drawer();return}
+done=j.order;cart={};cp=null;view='done';badge();await load();list();drawer()}catch(x){msg='Network problem. Please try again.';drawer()}});
+addEventListener('pointermove',e=>{const c=e.target.closest&&e.target.closest('.card');if(c){const r=c.getBoundingClientRect();c.style.setProperty('--x',e.clientX-r.left+'px');c.style.setProperty('--y',e.clientY-r.top+'px')}$('#glow').style.transform=`translate(${e.clientX}px,${e.clientY}px)`},{passive:true});
+addEventListener('hashchange',()=>route());
+async function load(){S=await(await fetch('/api/store')).json();const s=S.settings;$('#notice').textContent=s.notice;$('#notice').hidden=!s.notice;document.title=s.storeName+' – '+s.tagline;
+$('#wa').href='https://wa.me/'+String(s.whatsapp).replace(/\D/g,'');$('#wa').hidden=!s.whatsapp;
+$('#foot').innerHTML=`<div class="wrap fg"><div><img src="/logo-full.png" alt="${esc(s.storeName)}"><p>${esc(s.tagline)}</p></div><div><p><b>Contact</b></p><p>${esc(s.phone)}<br>${esc(s.email)}<br>${esc(s.address)}</p></div><div><p><b>Help</b></p><p><a href="#/track">Track order</a><br>${s.facebook?`<a href="${esc(s.facebook)}" target="_blank" rel="noopener">Facebook</a><br>`:''}Cash on delivery · bKash · Nagad</p></div></div><p class="mut" style="text-align:center;margin-top:30px;font-size:13px">© ${new Date().getFullYear()} ${esc(s.storeName)}. All rights reserved.</p>`;
+Object.keys(cart).forEach(id=>{if(!find(id))delete cart[id]});badge()}
+(async()=>{try{await load();route(true)}catch(e){$('#app').innerHTML='<p class="wrap err" style="padding:80px 20px">Could not load the store. Please refresh.</p>'}setTimeout(()=>$('#splash').classList.add('x'),500)})();
 </script></body></html>
